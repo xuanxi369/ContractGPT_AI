@@ -161,6 +161,48 @@ $("#login-verify").onclick = async () => {
    发送注册验证码（防并发+倒计时）
    填写验证码 + 用户名 + 密码 → 完成注册并自动登录
 */
+// const regSendBtn = $("#reg-send");
+// regSendBtn.onclick = async () => {
+//   const email = $("#reg-email").value.trim();
+
+//   regSendBtn.disabled = true; let left = 60;
+//   const timer = setInterval(()=>{ regSendBtn.textContent = `请稍候 ${left--}s`;
+//     if (left < 0) { clearInterval(timer); regSendBtn.textContent = "发送注册验证码"; regSendBtn.disabled = false; }
+//   },1000);
+
+//   try {
+//     const r = await fetch(`${API_BASE}/send-code`, {
+//       method: "POST", credentials: "include",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, purpose: "register" })
+//     });
+//  let data = await jsonOrEmpty(r);
+// if (!r.ok || !data.ok) {
+//   const d = data.detail || {};
+//   // const readable = d.code ? `${d.code}: ${d.message || d.raw || r.status}` : (data.error || r.status);
+//   const readable = d.code
+//     ? `${d.code}: ${d.message || d.raw || r.status}`
+//     : (d.message || d.raw || data.error || r.status);
+// //   $("#reg-msg").textContent = `失败：${readable}`;
+// // } else {
+// //   $("#reg-msg").textContent = "验证码已发送";
+// // }
+//   if (r.ok && data.ok) {
+//      if (data.code) {
+//        // NEW: 直返模式，自动填充验证码
+//        $("#reg-code").value = String(data.code);
+//        $("#reg-msg").textContent = "验证码已自动填入（同时邮件也会发送），请继续完成注册";
+//      } else {
+//        $("#reg-msg").textContent = "验证码已发送到邮箱，请查收";
+//      }
+//    } else {
+//      $("#reg-msg").textContent = `失败：${data.error || r.status}`;
+//    }
+//   } catch {
+//     $("#reg-msg").textContent = "失败：网络错误";
+//   }
+// };
+
 const regSendBtn = $("#reg-send");
 regSendBtn.onclick = async () => {
   const email = $("#reg-email").value.trim();
@@ -176,32 +218,29 @@ regSendBtn.onclick = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, purpose: "register" })
     });
- let data = await jsonOrEmpty(r);
-if (!r.ok || !data.ok) {
-  const d = data.detail || {};
-  // const readable = d.code ? `${d.code}: ${d.message || d.raw || r.status}` : (data.error || r.status);
-  const readable = d.code
-    ? `${d.code}: ${d.message || d.raw || r.status}`
-    : (d.message || d.raw || data.error || r.status);
-//   $("#reg-msg").textContent = `失败：${readable}`;
-// } else {
-//   $("#reg-msg").textContent = "验证码已发送";
-// }
-  if (r.ok && data.ok) {
-     if (data.code) {
-       // NEW: 直返模式，自动填充验证码
-       $("#reg-code").value = String(data.code);
-       $("#reg-msg").textContent = "验证码已自动填入（同时邮件也会发送），请继续完成注册";
-     } else {
-       $("#reg-msg").textContent = "验证码已发送到邮箱，请查收";
-     }
-   } else {
-     $("#reg-msg").textContent = `失败：${data.error || r.status}`;
-   }
+
+    const data = await jsonOrEmpty(r);
+
+    if (r.ok && data.ok) {
+      if (data.code) {
+        // 直返模式：自动填充
+        $("#reg-code").value = String(data.code);
+        $("#reg-msg").textContent = "验证码已自动填入（同时邮件也会发送），请继续完成注册";
+      } else {
+        $("#reg-msg").textContent = "验证码已发送到邮箱，请查收";
+      }
+    } else {
+      const d = data.detail || {};
+      const readable = d.code
+        ? `${d.code}: ${d.message || d.raw || r.status}`
+        : (data.error || r.status);
+      $("#reg-msg").textContent = `失败：${readable}`;
+    }
   } catch {
     $("#reg-msg").textContent = "失败：网络错误";
   }
 };
+
 
 const regSubmitBtn = $("#reg-submit");
 regSubmitBtn.onclick = async () => {
