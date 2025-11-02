@@ -121,9 +121,18 @@ loginSendBtn.onclick = async () => {
       body: JSON.stringify({ email, password })
     });
     const data = await jsonOrEmpty(r);
+    // if (!r.ok || !data.ok) { $("#login-msg").textContent = `失败：${data.error || r.status}`; return; }
+    // $("#login-msg").textContent = "验证码已发送到邮箱，请查收";
+    // $("#login-code-row").classList.remove("hidden");
     if (!r.ok || !data.ok) { $("#login-msg").textContent = `失败：${data.error || r.status}`; return; }
-    $("#login-msg").textContent = "验证码已发送到邮箱，请查收";
-    $("#login-code-row").classList.remove("hidden");
+    if (data.code) {
+     // NEW：直返验证码
+     $("#login-code").value = String(data.code);
+     $("#login-msg").textContent = "验证码已自动填入（同时邮件也会发送），请继续验证完成登录";
+   } else {
+     $("#login-msg").textContent = "验证码已发送到邮箱，请查收";
+   }
+   $("#login-code-row").classList.remove("hidden");
   } catch {
     $("#login-msg").textContent = "失败：网络错误";
   }
@@ -174,10 +183,21 @@ if (!r.ok || !data.ok) {
   const readable = d.code
     ? `${d.code}: ${d.message || d.raw || r.status}`
     : (d.message || d.raw || data.error || r.status);
-  $("#reg-msg").textContent = `失败：${readable}`;
-} else {
-  $("#reg-msg").textContent = "验证码已发送";
-}
+//   $("#reg-msg").textContent = `失败：${readable}`;
+// } else {
+//   $("#reg-msg").textContent = "验证码已发送";
+// }
+  if (r.ok && data.ok) {
+     if (data.code) {
+       // NEW: 直返模式，自动填充验证码
+       $("#reg-code").value = String(data.code);
+       $("#reg-msg").textContent = "验证码已自动填入（同时邮件也会发送），请继续完成注册";
+     } else {
+       $("#reg-msg").textContent = "验证码已发送到邮箱，请查收";
+     }
+   } else {
+     $("#reg-msg").textContent = `失败：${data.error || r.status}`;
+   }
   } catch {
     $("#reg-msg").textContent = "失败：网络错误";
   }
