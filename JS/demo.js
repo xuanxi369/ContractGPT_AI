@@ -382,7 +382,8 @@
 /* a) 进入即检查登录态（未登录→登录页） */
 (async () => {
   try {
-    const r = await fetch("api/auth/me", { credentials: "include" });
+    // const r = await fetch("api/auth/me", { credentials: "include" });
+    const r = await fetch("/api/auth/me", { credentials: "include" });
     const me = await r.json();
     if (!me.authenticated) location.href = "index.html";
   } catch (e) { location.href = "index.html"; }
@@ -681,15 +682,45 @@ document.addEventListener("DOMContentLoaded", function () {
     statusArea.textContent = "🤖 AI 正在思考中...";
 
     try {
-      const response = await fetch("api/analyze", {
+      const response = await fetch("/api/analyze", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contract: fullContractText, question: userMessage })
       });
 
-      const data = await response.json();
-      const answer = data.choices?.[0]?.message?.content || "未返回任何内容";
+      // const data = await response.json();
+      // const answer = data.choices?.[0]?.message?.content || "未返回任何内容";
+      const data = await (async () => {
+        try { return await response.json(); } catch { return {}; }
+    })();
+ 
+    // if (!response.ok || data.ok === false || data.error) {
+    //    const msg = data?.message || data?.detail || data?.error || `HTTP ${response.status}`;
+    //    const aiErr = document.createElement("p");
+    //   aiErr.textContent = "❌ 分析失败：" + (typeof msg === "string" ? msg : JSON.stringify(msg));
+    //   chatLog.appendChild(aiErr);
+    //   statusArea.textContent = "❌ 请求失败，请稍后重试";
+    //   return;
+    // }
+
+   if (!response.ok || data.ok === false || data.error) {
+   let msg = data?.message || data?.detail || data?.error || `HTTP ${response.status}`;
+   if (msg === "unauthorized" || /登录|未登录/i.test(msg)) {
+       msg = "未登录，请返回登录页后重试。";
+       setTimeout(() => { location.href = "index.html"; }, 2000);
+    } else if (msg.includes("missing_params")) {
+      msg = "请上传合同并输入你的问题。";
+   }
+   const aiErr = document.createElement("p");
+   aiErr.textContent = "❌ 分析失败：" + msg;
+   chatLog.appendChild(aiErr);
+   statusArea.textContent = "❌ 请求失败，请稍后重试";
+   return;
+}
+
+ 
+    const answer = data?.choices?.[0]?.message?.content || "（模型未返回内容）";
 
       const aiBubble = document.createElement("div");
       aiBubble.classList.add("ai-response");
