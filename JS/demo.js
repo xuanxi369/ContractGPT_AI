@@ -385,8 +385,8 @@
     // const r = await fetch("api/auth/me", { credentials: "include" });
     const r = await fetch("/api/auth/me", { credentials: "include" });
     const me = await r.json();
-    if (!me.authenticated) location.href = "index.html";
-  } catch (e) { location.href = "index.html"; }
+    if (!me.authenticated) location.href = "login.html";
+  } catch (e) { location.href = "login.html"; }
 })();
 
 /* b) 指定 pdf.js worker 源（提取大 PDF 更稳） */
