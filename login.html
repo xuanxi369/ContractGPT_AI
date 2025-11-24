@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ContractGPT · The Intelligent Era</title>
+  <title>ContractGPT · 智能时代</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
@@ -20,15 +20,15 @@
     <header class="hero-text">
       <p class="subtitle">FROM DATA TO INTELLIGENCE</p>
       <h1 class="title">Contract <em>GPT</em></h1>
-      <p class="description">An interactive journey through the logic of contracts.</p>
+      <p class="description">一次探索合同逻辑的互动之旅.</p>
     </header>
 
     <div class="interaction-zone">
       
       <nav class="tabs-nav">
-        <button class="nav-btn active" data-tab="login">Login</button>
+        <button class="nav-btn active" data-tab="login">登录</button>
         <span class="divider">/</span>
-        <button class="nav-btn" data-tab="register">Register</button>
+        <button class="nav-btn" data-tab="register">注册</button>
       </nav>
 
       <div class="content-panel show" id="panel-login">
@@ -44,7 +44,7 @@
           </div>
 
           <div class="actions">
-            <button id="login-send" class="cta-btn">Start Session</button>
+            <button id="login-send" class="cta-btn">Start</button>
           </div>
 
           <div class="code-section hidden" id="login-code-row">
@@ -52,7 +52,7 @@
               <input id="login-code" type="text" maxlength="6" placeholder=" " />
               <label class="floating-label">Ver. Code</label>
             </div>
-            <button id="login-verify" class="cta-btn secondary">Enter</button>
+            <button id="login-verify" class="cta-btn secondary">确认</button>
           </div>
           
           <div id="login-msg" class="status-msg"></div>
@@ -75,14 +75,14 @@
           </div>
 
           <div class="actions split">
-            <button id="reg-send" class="cta-btn outline">Get Code</button>
+            <button id="reg-send" class="cta-btn outline">发送验证码</button>
           </div>
 
           <div class="input-line mt-large">
             <input id="reg-code" type="text" maxlength="6" placeholder=" " />
-            <label class="floating-label">Verification Code</label>
+            <label class="floating-label">验证码</label>
           </div>
-          <button id="reg-submit" class="cta-btn">Initialize Account</button>
+          <button id="reg-submit" class="cta-btn">初始化账户</button>
           
           <div id="reg-msg" class="status-msg"></div>
         </div>
