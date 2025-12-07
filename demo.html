@@ -35,56 +35,66 @@
       
       <section id="upload-section" class="panel">
         <header class="panel-header">
-          <span class="panel-subtitle">STEP 01</span>
-          <h2>Document Upload</h2>
+          <span class="panel-subtitle">步骤 01</span>
+          <h2>合同文档上传</h2>
         </header>
         
         <div id="drag-drop-zone" class="upload-zone">
           <input type="file" id="file-input" accept=".txt,.pdf,.docx" />
           <div class="upload-content">
             <div class="upload-icon">📄</div>
-            <p class="upload-title">Drop Contract Here</p>
-            <p class="upload-desc">Support .txt, .pdf, .docx</p>
+            <p class="upload-title">此处选择文档</p>
+            <p class="upload-desc">支持 .txt, .pdf, .docx</p>
           </div>
         </div>
         
         <div class="hint-text">
           <p>Privacy Protected · Temporary Storage · Auto-Cleaning</p>
+          <p>为确保合同解析结果准确，请注意以下事项：</p>
+          <p>· 建议上传 .txt、.pdf 或 .docx 正式合同文本，避免截图或扫描图像格式；</p>
+          <p>· 支持多页合同，系统将按页面顺序自动识别，无需手动拆分整理；</p>
+          <p>· 上传前请检查文件是否完整清晰，避免乱码、缺页或水印遮挡；</p>
+          <p>· 上传后系统将自动启用语言模型，提取关键信息并生成条款摘要；</p>
+          <p>· 所有文档仅用于本地临时分析，处理完毕后将即时清除，确保数据安全。</p>
         </div>
       </section>
 
       <section id="preview-section" class="panel">
         <header class="panel-header">
-          <span class="panel-subtitle">STEP 02</span>
-          <h2>Raw Content</h2>
+          <span class="panel-subtitle">步骤 02</span>
+          <h2>合约原文预览</h2>
         </header>
         
         <div class="document-container">
           <div id="contract-text" class="paper-view">
             <div class="empty-state">
-              Waiting for document...
+               尚未上传合同
+               上传后此处将显示完整合同内容，系统将自动解析文档结构，按条款段落顺序清晰呈现，支持用户对关键内容进行定位、审阅与比对操作。
+               --------------------------------------
+               示例：合同条款将按段落显示，支持纵向滚动阅读，页面编号与原始排版将同步保留，便于与原文核对。
+               请务必逐页查阅，尤其注意末页附加条款、补充协议、争议处理方式等内容，避免因遗漏关键条款而影响签署决策或后续维权。
             </div>
           </div>
-          <button id="toggle-preview" class="action-btn">Expand View</button>
+          <button id="toggle-preview" class="action-btn">全局展开</button>
         </div>
         
         <div class="hint-text">
-          System automatically parses structural clauses.
+          系统自动解析结构化子句。
         </div>
       </section>
 
       <section id="risk-section" class="panel full-width">
         <header class="panel-header">
-          <span class="panel-subtitle">ANALYSIS</span>
-          <h2>Risk Assessment</h2>
+          <span class="panel-subtitle">解析</span>
+          <h2>风险评估</h2>
         </header>
         
         <div id="risk-cards" class="risk-grid">
           <div class="risk-default">
             <span class="risk-icon">⚠️</span>
             <div class="risk-info">
-              <p><strong>Awaiting Analysis</strong></p>
-              <p>Potential risks (e.g., indemnity, non-compete) will appear here after upload.</p>
+              <p><strong>待解析</strong></p>
+              <p>上传后，潜在风险（例如赔偿、竞业禁止）将显示在此处。</p>
             </div>
           </div>
         </div>
@@ -92,7 +102,7 @@
 
       <section id="chat-section" class="panel full-width chat-panel">
         <header class="panel-header">
-          <span class="panel-subtitle">INTELLIGENCE</span>
+          <span class="panel-subtitle">核心</span>
           <h2>Consultant AI</h2>
         </header>
         
@@ -101,11 +111,11 @@
 
         <div class="chat-input-area">
           <input type="text" id="chat-input" placeholder="Ask about specific clauses..." autocomplete="off" />
-          <button id="send-chat" class="send-btn">Send Query</button>
+          <button id="send-chat" class="send-btn">发送</button>
         </div>
         
         <div class="hint-text" style="margin-top: 15px;">
-          <p>AI Interpretation based on contract context.</p>
+          <p>基于合同上下文的AI解读。</p>
         </div>
       </section>
 
@@ -116,7 +126,7 @@
     </main>
 
     <footer class="minimal-footer">
-      <p>© 2025 ContractGPT · <a href="mailto:millychck@gmail.com">Contact Support</a> · Disclaimer: AI advice is for reference only.</p>
+      <p>© 2025 ContractGPT · <a href="mailto:millychck@gmail.com">Contact Support</a> 免责声明：人工智能提供的建议仅供参考。</p>
     </footer>
   </div>
 
